@@ -61,6 +61,10 @@ class Board {
                 throw new \Exception('Incorrect order of move');
             }
 
+            if (get_class($figure) === 'Pawn') {
+                $figure->checkAllowedMoves($xFrom, $yFrom, $xTo, $yTo, $this->figures);
+            }
+
             $this->figures[$xTo][$yTo] = $this->figures[$xFrom][$yFrom];
             $this->updateCurrentColor();
         }

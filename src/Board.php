@@ -2,6 +2,7 @@
 
 class Board {
     private $figures = [];
+    private $currentColor = false; // white
 
     public function __construct() {
         $this->figures['a'][1] = new Rook(false);
@@ -52,7 +53,16 @@ class Board {
         $yTo   = $match[4];
 
         if (isset($this->figures[$xFrom][$yFrom])) {
+
+            $figure = $this->figures[$xFrom][$yFrom];
+
+            /** @var $figure Figure */
+            if ($figure->getIsBlack() !== $this->getCurrentColor()) {
+                throw new \Exception('Incorrect order of move');
+            }
+
             $this->figures[$xTo][$yTo] = $this->figures[$xFrom][$yFrom];
+            $this->updateCurrentColor();
         }
         unset($this->figures[$xFrom][$yFrom]);
     }
@@ -70,5 +80,15 @@ class Board {
             echo "\n";
         }
         echo "  abcdefgh\n";
+    }
+
+    public function getCurrentColor()
+    {
+        return $this->currentColor;
+    }
+
+    public function updateCurrentColor()
+    {
+        $this->currentColor = !$this->getCurrentColor();
     }
 }

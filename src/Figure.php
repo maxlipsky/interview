@@ -7,6 +7,11 @@ class Figure {
         $this->isBlack = $isBlack;
     }
 
+    public function getIsBlack()
+    {
+        return $this->isBlack;
+    }
+
     /** @noinspection PhpToStringReturnInspection */
     public function __toString() {
         throw new \Exception("Not implemented");
